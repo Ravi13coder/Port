@@ -1,0 +1,1766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FunStack – A Fun Stack of Websites & Games</title>
+  <meta name="description" content="FunStack is a growing, ever-updating collection of websites, browser games, and Scratch creations — built for fun, learning, and creativity." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+/* ═══════════════════════════════════════════════
+   FunStack — Portfolio CSS  v3.0
+   Theme: Midnight Velvet · Rose · Liquid Amber
+   "Elite Noir Luxury" — dark, warm, stunning
+═══════════════════════════════════════════════ */
+
+/* ────────────────────────────────────────────
+   1. DESIGN TOKENS
+──────────────────────────────────────────── */
+:root {
+  /* ── Backgrounds ─────────────────────────── */
+  --bg-0:  #07060C;          /* deepest — near-black warm violet */
+  --bg-1:  #0B0A14;          /* main bg */
+  --bg-2:  #100E1E;          /* alt sections */
+  --bg-card: rgba(255,255,255,0.038);
+  --bg-card-h: rgba(255,255,255,0.07);
+
+  /* ── Accent: Rose / Berry ─────────────────── */
+  --rose:    #E03880;        /* electric deep rose — hero CTA */
+  --rose-lt: #F272AB;        /* light rose */
+  --rose-dk: #B5206A;        /* dark rose */
+  --rose-glow: rgba(224,56,128,0.22);
+
+  /* ── Accent: Liquid Amber / Gold ─────────── */
+  --amber:    #F0A000;       /* warm amber */
+  --amber-lt: #F6C040;       /* light amber */
+  --amber-dk: #C07800;       /* dark amber */
+  --amber-glow: rgba(240,160,0,0.18);
+
+  /* ── Accent: Mint / Teal (positive) ─────── */
+  --mint:    #2DD4BF;
+  --mint-dk: #0E9B8A;
+
+  /* ── Accent: Coral (danger) ──────────────── */
+  --coral:   #FF5C6A;
+
+  /* ── Text ────────────────────────────────── */
+  --text-0:  #F8F2EC;        /* warm cream white */
+  --text-1:  #B8A8C4;        /* muted warm lavender */
+  --text-2:  #6A5C7A;        /* very muted */
+
+  /* ── Borders ─────────────────────────────── */
+  --border:      rgba(255,255,255,0.07);
+  --border-rose: rgba(224,56,128,0.3);
+  --border-amb:  rgba(240,160,0,0.28);
+
+  /* ── Gradients ───────────────────────────── */
+  --grad-hero:   linear-gradient(135deg, #E03880 0%, #F0A000 100%);
+  --grad-rose:   linear-gradient(135deg, #E03880, #F272AB);
+  --grad-amber:  linear-gradient(135deg, #F0A000, #F6C040);
+  --grad-warm:   linear-gradient(135deg, #E03880 0%, #9B3FBF 50%, #F0A000 100%);
+
+  /* ── Shadows ─────────────────────────────── */
+  --shadow-rose:  0 0 48px rgba(224,56,128,0.18);
+  --shadow-amber: 0 0 48px rgba(240,160,0,0.14);
+
+  /* ── Radii & Motion ──────────────────────── */
+  --r-xs: 8px;
+  --r-sm: 12px;
+  --r:    18px;
+  --r-lg: 26px;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --t: 0.3s var(--ease);
+}
+
+/* ────────────────────────────────────────────
+   2. RESET & BASE
+──────────────────────────────────────────── */
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+body {
+  font-family:'Outfit',sans-serif;
+  background: var(--bg-1);
+  color: var(--text-0);
+  overflow-x: hidden;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+img  { display:block; max-width:100%; height:auto; }
+a    { color:inherit; text-decoration:none; }
+ul   { list-style:none; }
+button { font-family:inherit; cursor:pointer; }
+
+/* ────────────────────────────────────────────
+   3. PARTICLES CANVAS
+──────────────────────────────────────────── */
+#particleCanvas {
+  position:fixed; inset:0;
+  pointer-events:none; z-index:0; opacity:0.38;
+}
+
+/* ────────────────────────────────────────────
+   4. UTILITIES
+──────────────────────────────────────────── */
+.gradient-text {
+  background: var(--grad-warm);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.container { max-width:1200px; margin:0 auto; padding:0 22px; }
+
+/* ────────────────────────────────────────────
+   5. NAVBAR
+──────────────────────────────────────────── */
+#navbar {
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  background:rgba(7,6,12,0.8);
+  border-bottom:1px solid var(--border);
+  transition: background var(--t), border-color var(--t);
+}
+#navbar.scrolled {
+  background:rgba(7,6,12,0.97);
+  border-color: rgba(224,56,128,0.2);
+}
+.nav-inner {
+  max-width:1200px; margin:0 auto; padding:0 22px;
+  height:64px; display:flex; align-items:center; justify-content:space-between;
+}
+.nav-logo { display:flex; align-items:center; gap:10px; flex-shrink:0; z-index:1; }
+.nav-logo-img {
+  width:38px; height:38px; border-radius:50%;
+  border:2px solid var(--amber); object-fit:cover; flex-shrink:0;
+}
+.nav-logo-text { font-weight:800; font-size:1.05rem; letter-spacing:-0.02em; }
+.nav-logo-text .accent { color:var(--amber); }
+.nav-links { display:flex; align-items:center; gap:4px; }
+.nav-link {
+  padding:6px 13px; border-radius:var(--r-xs);
+  font-size:0.875rem; font-weight:500; color:var(--text-1);
+  transition:var(--t); white-space:nowrap;
+}
+.nav-link:hover, .nav-link.active {
+  color:var(--text-0); background:rgba(224,56,128,0.13);
+}
+.nav-link-notebook {
+  color:var(--amber) !important;
+  background:rgba(240,160,0,0.1) !important;
+  border:1px solid rgba(240,160,0,0.25);
+}
+.nav-link-notebook:hover {
+  background:rgba(240,160,0,0.2) !important;
+  border-color:var(--amber);
+}
+/* Hamburger */
+.hamburger {
+  display:none; flex-direction:column; justify-content:center;
+  gap:5px; background:none; border:none;
+  padding:8px; border-radius:var(--r-xs); z-index:1001; flex-shrink:0;
+}
+.hamburger span {
+  display:block; width:22px; height:2px;
+  background:var(--text-0); border-radius:2px; transition:var(--t);
+}
+.hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+.hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+/* ────────────────────────────────────────────
+   6. SECTION BASE
+──────────────────────────────────────────── */
+.section { padding:96px 0; position:relative; z-index:1; }
+.section-header { text-align:center; margin-bottom:56px; }
+.section-tag {
+  display:inline-block; padding:5px 16px; border-radius:100px;
+  background:rgba(224,56,128,0.1); border:1px solid rgba(224,56,128,0.28);
+  color:var(--rose-lt); font-size:0.7rem; font-weight:700;
+  letter-spacing:0.1em; text-transform:uppercase; margin-bottom:14px;
+}
+.section-title {
+  font-size:clamp(1.9rem,4vw,2.9rem); font-weight:800;
+  letter-spacing:-0.03em; line-height:1.15; margin-bottom:14px;
+}
+.section-sub { color:var(--text-1); font-size:1.05rem; max-width:520px; margin:0 auto; }
+
+/* Buttons */
+.btn {
+  display:inline-flex; align-items:center; justify-content:center;
+  gap:8px; padding:14px 28px; border-radius:var(--r);
+  font-size:0.925rem; font-weight:700; border:none;
+  transition:var(--t); white-space:nowrap; cursor:pointer;
+}
+.btn-primary {
+  background:var(--grad-rose); color:#fff;
+  box-shadow:0 4px 24px rgba(224,56,128,0.4);
+}
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 36px rgba(224,56,128,0.6); }
+.btn-outline {
+  background:transparent; color:var(--text-0);
+  border:1.5px solid var(--border);
+}
+.btn-outline:hover { background:var(--bg-card); border-color:var(--rose); transform:translateY(-2px); }
+
+/* ────────────────────────────────────────────
+   7. HERO
+──────────────────────────────────────────── */
+.hero {
+  min-height:100vh; display:grid; grid-template-columns:1fr 1fr;
+  gap:48px; align-items:center; padding:100px 60px 60px;
+  position:relative; z-index:1; max-width:1400px; margin:0 auto;
+}
+/* Ambient glows */
+.hero::before {
+  content:''; position:absolute; top:10%; left:-5%;
+  width:55%; height:65%;
+  background:radial-gradient(ellipse at 25% 50%, rgba(224,56,128,0.1) 0%, transparent 65%);
+  pointer-events:none;
+}
+.hero::after {
+  content:''; position:absolute; bottom:0; right:0;
+  width:50%; height:60%;
+  background:radial-gradient(ellipse at 75% 70%, rgba(240,160,0,0.08) 0%, transparent 65%);
+  pointer-events:none;
+}
+.hero-content { position:relative; z-index:1; }
+.hero-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:7px 16px; border-radius:100px;
+  background:rgba(224,56,128,0.1); border:1px solid rgba(224,56,128,0.28);
+  font-size:0.78rem; font-weight:600; color:var(--rose-lt); margin-bottom:22px;
+}
+.pulse-dot {
+  width:7px; height:7px; border-radius:50%;
+  background:var(--mint); animation:pulse 2s ease-in-out infinite; flex-shrink:0;
+}
+@keyframes pulse {
+  0%,100%{ opacity:1; transform:scale(1); }
+  50%{ opacity:0.4; transform:scale(1.45); }
+}
+.hero-title {
+  font-size:clamp(2.6rem,5.5vw,4.5rem); font-weight:900;
+  letter-spacing:-0.04em; line-height:1.08; margin-bottom:20px;
+}
+.hero-subtitle {
+  font-size:1.1rem; color:var(--text-1); line-height:1.78;
+  margin-bottom:34px; max-width:460px;
+}
+.hero-cta { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:48px; }
+.hero-stats { display:flex; align-items:center; gap:22px; flex-wrap:wrap; }
+.stat { text-align:center; }
+.stat-value {
+  display:block; font-size:1.8rem; font-weight:800; line-height:1.1;
+  background:var(--grad-hero);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.stat-label { display:block; font-size:0.7rem; color:var(--text-2); margin-top:3px; letter-spacing:0.04em; }
+.stat-divider { width:1px; height:36px; background:var(--border); flex-shrink:0; }
+
+/* Hero Visual */
+.hero-visual { display:flex; justify-content:center; align-items:center; position:relative; z-index:1; }
+.hero-phone-wrap { position:relative; width:100%; max-width:460px; }
+.scan-ring {
+  position:absolute; border-radius:50%;
+  top:50%; left:50%; transform:translate(-50%,-50%);
+  animation:ringPulse 3.5s ease-in-out infinite;
+}
+.ring1 { width:112%; height:112%; border:1px solid rgba(224,56,128,0.22); animation-delay:0s; }
+.ring2 { width:132%; height:132%; border:1px solid rgba(240,160,0,0.12); animation-delay:0.7s; }
+.ring3 { width:158%; height:158%; border:1px solid rgba(224,56,128,0.07); animation-delay:1.4s; }
+@keyframes ringPulse {
+  0%,100%{ transform:translate(-50%,-50%) scale(1); opacity:0.7; }
+  50%    { transform:translate(-50%,-50%) scale(1.05); opacity:0.18; }
+}
+.hero-screenshot {
+  width:100%; border-radius:var(--r-lg);
+  border:1px solid rgba(224,56,128,0.22);
+  box-shadow:0 24px 80px rgba(0,0,0,0.7), var(--shadow-rose);
+  position:relative; z-index:1;
+}
+.hero-showcase-card {
+  aspect-ratio:4/5; display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg,#150E22 0%,#1A1128 55%,#150E22 100%);
+}
+.hero-showcase-card span { font-size:5.5rem; filter:drop-shadow(0 8px 24px rgba(224,56,128,0.35)); }
+.alert-badge-float {
+  position:absolute; padding:7px 13px; border-radius:50px;
+  font-size:0.72rem; font-weight:700;
+  backdrop-filter:blur(10px); animation:floatBadge 4s ease-in-out infinite;
+  z-index:2; border:1px solid rgba(255,255,255,0.12); letter-spacing:0.02em;
+}
+.alert-1 { top:14%; right:-18%; background:rgba(255,92,106,0.88); color:#fff; animation-delay:0s; }
+.alert-2 { bottom:32%; left:-20%; background:rgba(224,56,128,0.88); color:#fff; animation-delay:1.5s; }
+.alert-3 { bottom:8%; right:-14%; background:rgba(240,160,0,0.88); color:#07060C; animation-delay:3s; }
+@keyframes floatBadge {
+  0%,100%{ transform:translateY(0); }
+  50%    { transform:translateY(-9px); }
+}
+.hero-scroll-indicator {
+  position:absolute; bottom:28px; left:60px;
+  display:flex; align-items:center; gap:10px;
+  color:var(--text-2); font-size:0.75rem;
+}
+.scroll-arrow {
+  width:18px; height:18px;
+  border-right:2px solid var(--text-2); border-bottom:2px solid var(--text-2);
+  transform:rotate(45deg); animation:scrollBounce 2s ease-in-out infinite;
+}
+@keyframes scrollBounce {
+  0%,100%{ transform:rotate(45deg) translate(0,0); }
+  50%    { transform:rotate(45deg) translate(3px,3px); }
+}
+
+/* ────────────────────────────────────────────
+   8. ABOUT
+──────────────────────────────────────────── */
+.about-section { background:var(--bg-2); }
+.about-grid { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
+.lead-text { font-size:1.1rem; color:var(--text-1); line-height:1.8; margin-bottom:16px; }
+.about-text p { color:var(--text-1); margin-bottom:14px; line-height:1.8; }
+.about-text strong { color:var(--text-0); }
+.about-highlight-cards { display:flex; flex-direction:column; gap:12px; margin-top:24px; }
+.highlight-card {
+  display:flex; align-items:flex-start; gap:14px;
+  padding:16px 18px; background:var(--bg-card);
+  border:1px solid var(--border); border-radius:var(--r); transition:var(--t);
+}
+.highlight-card:hover {
+  background:var(--bg-card-h); border-color:var(--border-rose); transform:translateX(4px);
+}
+.hc-icon { font-size:1.4rem; line-height:1; flex-shrink:0; margin-top:2px; }
+.highlight-card h4 { font-size:0.92rem; font-weight:700; margin-bottom:3px; }
+.highlight-card p  { font-size:0.82rem; color:var(--text-2); margin:0; }
+.about-img-stack  { position:relative; }
+.about-img-main {
+  width:100%; border-radius:var(--r-lg);
+  border:1px solid var(--border); box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.about-img-overlay {
+  position:absolute; bottom:-20px; right:-20px; width:55%;
+  border-radius:var(--r); border:2px solid var(--bg-1);
+  box-shadow:0 10px 32px rgba(0,0,0,0.5);
+}
+.about-badge {
+  position:absolute; top:18px; left:18px; padding:7px 14px;
+  background:rgba(7,6,12,0.9); backdrop-filter:blur(10px);
+  border:1px solid var(--border-rose); border-radius:50px;
+  font-size:0.78rem; font-weight:600; color:var(--rose-lt);
+  display:flex; align-items:center; gap:6px;
+}
+.about-img-placeholder {
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg,#150E22 0%,#1A1128 55%,#150E22 100%);
+  aspect-ratio:4/3;
+}
+.about-img-placeholder span { font-size:3.2rem; }
+.about-img-overlay.about-img-placeholder { aspect-ratio:1/1; }
+.about-img-overlay.about-img-placeholder span { font-size:2.2rem; }
+
+/* ────────────────────────────────────────────
+   9. FEATURES
+──────────────────────────────────────────── */
+.features-section { background:var(--bg-1); position:relative; overflow:hidden; }
+.features-section::before {
+  content:''; position:absolute; top:35%; right:-80px;
+  width:400px; height:400px;
+  background:radial-gradient(circle, rgba(240,160,0,0.06), transparent 70%);
+  pointer-events:none;
+}
+.features-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+.feature-card {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--r-lg); padding:26px; transition:var(--t);
+  position:relative; overflow:hidden;
+}
+.feature-card::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.025) 0%, transparent 55%);
+  border-radius:inherit; pointer-events:none;
+}
+.feature-card:hover {
+  background:var(--bg-card-h); transform:translateY(-5px);
+  box-shadow:0 20px 56px rgba(0,0,0,0.4), var(--shadow-rose);
+  border-color:rgba(224,56,128,0.25);
+}
+.feat-icon-wrap {
+  width:50px; height:50px; border-radius:var(--r-sm);
+  display:flex; align-items:center; justify-content:center; margin-bottom:14px;
+}
+.feat-icon-wrap svg { width:24px; height:24px; color:#fff; }
+.feat-blue   { background:linear-gradient(135deg,#E03880,#B5206A); }
+.feat-green  { background:linear-gradient(135deg,#2DD4BF,#0E9B8A); }
+.feat-red    { background:linear-gradient(135deg,#FF5C6A,#D42040); }
+.feat-orange { background:var(--grad-amber); }
+.feat-purple { background:linear-gradient(135deg,#9B3FBF,#6C63FF); }
+.feature-card h3 { font-size:1.15rem; font-weight:700; margin-bottom:8px; }
+.feature-card>p  { color:var(--text-1); font-size:0.87rem; line-height:1.7; margin-bottom:18px; }
+.feat-demo-img { position:relative; border-radius:var(--r-sm); overflow:hidden; aspect-ratio:16/9; }
+.feat-demo-img img { width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease; }
+.feature-card:hover .feat-demo-img img { transform:scale(1.05); }
+.feat-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top,rgba(7,6,12,0.84) 0%,transparent 55%);
+  display:flex; align-items:flex-end; padding:12px;
+}
+.feat-accuracy { font-size:0.75rem; font-weight:700; color:var(--mint); background:rgba(0,0,0,0.5); padding:4px 10px; border-radius:50px; }
+.feat-accuracy.danger  { color:var(--coral); }
+.feat-accuracy.warning { color:var(--amber-lt); }
+
+/* ────────────────────────────────────────────
+   10. TECH STACK
+──────────────────────────────────────────── */
+.stack-section { background:var(--bg-2); }
+.stack-categories { display:flex; flex-direction:column; gap:44px; }
+.category-label {
+  font-size:0.95rem; font-weight:700; color:var(--text-1);
+  margin-bottom:18px; padding-bottom:12px; border-bottom:1px solid var(--border);
+}
+.lib-grid { display:flex; flex-wrap:wrap; gap:14px; }
+.lib-card {
+  position:relative; background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--r-lg); padding:22px 18px;
+  flex:1 1 150px; max-width:200px; min-width:140px;
+  display:flex; flex-direction:column; align-items:center;
+  gap:9px; cursor:pointer; transition:var(--t); text-align:center; overflow:hidden;
+}
+.lib-card::after {
+  content:''; position:absolute; inset:0;
+  background:var(--grad-rose); opacity:0; transition:opacity 0.3s; border-radius:inherit;
+}
+.lib-card:hover { transform:translateY(-6px) scale(1.02); border-color:var(--rose); box-shadow:0 14px 40px rgba(224,56,128,0.2); }
+.lib-card:hover::after { opacity:0.06; }
+.lib-logo { width:52px; height:52px; border-radius:12px; object-fit:contain; background:#fff; padding:6px; flex-shrink:0; }
+.lib-logo-svg { padding:7px; }
+.lib-logo-text {
+  width:52px; height:52px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.2rem; font-weight:800; color:#fff; flex-shrink:0;
+}
+.lib-name  { font-size:0.87rem; font-weight:700; color:var(--text-0); position:relative; z-index:1; }
+.lib-role  { font-size:0.72rem; color:var(--text-2); position:relative; z-index:1; }
+.lib-hover-hint { font-size:0.68rem; color:var(--amber-lt); opacity:0; transition:opacity 0.3s; position:relative; z-index:1; }
+.lib-card:hover .lib-hover-hint { opacity:1; }
+.lib-card-empty { cursor:pointer; border-style:dashed; opacity:0.7; }
+.lib-card-empty:hover { opacity:1; border-color:var(--border-rose); box-shadow:0 8px 24px rgba(224,56,128,0.12); }
+.lib-card-empty .lib-role { color:var(--text-2); font-style:italic; }
+
+/* ────────────────────────────────────────────
+   11. IN ACTION
+──────────────────────────────────────────── */
+.inaction-section { background:var(--bg-1); }
+.inaction-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.inaction-item {
+  position:relative; border-radius:var(--r); overflow:hidden; cursor:pointer;
+  aspect-ratio:4/3; border:1px solid var(--border); transition:var(--t);
+}
+.inaction-item.large { grid-column:span 2; grid-row:span 2; aspect-ratio:auto; }
+.inaction-item img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.5s ease; }
+.inaction-item:hover img { transform:scale(1.06); }
+.inaction-item:hover { box-shadow:0 16px 48px rgba(0,0,0,0.5); border-color:rgba(224,56,128,0.3); }
+.inaction-caption {
+  position:absolute; bottom:0; left:0; right:0; padding:14px;
+  background:linear-gradient(to top,rgba(7,6,12,0.97) 0%,transparent 100%);
+  transform:translateY(100%); transition:transform 0.3s ease;
+}
+.inaction-item:hover .inaction-caption { transform:translateY(0); }
+.inaction-caption p { font-size:0.8rem; color:var(--text-1); margin-top:4px; }
+.ia-tag {
+  font-size:0.68rem; font-weight:700; padding:3px 10px; border-radius:50px;
+  background:rgba(224,56,128,0.22); color:var(--rose-lt);
+  letter-spacing:0.04em; text-transform:uppercase;
+}
+.inaction-empty {
+  grid-column:1 / -1; display:flex; flex-direction:column; align-items:center;
+  justify-content:center; gap:12px; padding:60px 20px;
+  border:1px dashed var(--border); border-radius:var(--r-lg);
+  color:var(--text-2); text-align:center;
+}
+.inaction-empty .big { font-size:2.4rem; }
+.inaction-empty p { font-size:0.85rem; max-width:380px; line-height:1.6; }
+
+/* ────────────────────────────────────────────
+   12. ARCHITECTURE
+──────────────────────────────────────────── */
+.arch-section { background:var(--bg-2); }
+.arch-flow {
+  display:flex; align-items:flex-start; justify-content:center;
+  gap:0; flex-wrap:wrap; margin-bottom:56px;
+}
+.arch-step {
+  position:relative; display:flex; flex-direction:column;
+  align-items:center; text-align:center; width:160px; padding:0 8px;
+}
+.arch-step-icon {
+  width:70px; height:70px; border-radius:50%;
+  background:var(--bg-card); border:2px solid var(--border-rose);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.9rem; margin-bottom:12px; transition:var(--t); position:relative; z-index:1;
+}
+.arch-step:hover .arch-step-icon {
+  background:linear-gradient(135deg,rgba(224,56,128,0.15),rgba(240,160,0,0.1));
+  border-color:var(--rose); transform:scale(1.12);
+}
+.arch-step-label { font-size:0.83rem; font-weight:700; margin-bottom:6px; }
+.arch-step-desc  { font-size:0.7rem; color:var(--text-2); line-height:1.5; }
+.arch-arrow { font-size:1.4rem; color:var(--rose); position:absolute; right:-18px; top:22px; z-index:2; }
+.specs-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.spec-card {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--r); padding:22px; transition:var(--t);
+}
+.spec-card:hover { background:var(--bg-card-h); border-color:var(--border-rose); }
+.spec-card h4 { font-size:0.92rem; font-weight:700; margin-bottom:14px; }
+.spec-card ul { display:flex; flex-direction:column; gap:9px; }
+.spec-card li { font-size:0.8rem; color:var(--text-1); }
+.spec-card strong { color:var(--text-0); }
+
+/* ────────────────────────────────────────────
+   13. TEAM
+──────────────────────────────────────────── */
+/* Team mentor highlight row */
+.team-mentor-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+.team-card-mentor {
+  max-width: 460px;
+  width: 100%;
+}
+
+/* Team grid stays 3-column for 6 cards */
+.team-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+
+.team-card {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--r-lg); padding:34px 22px; text-align:center;
+  transition:var(--t); position:relative;
+}
+.team-card:hover {
+  background:var(--bg-card-h); transform:translateY(-6px);
+  box-shadow:0 20px 56px rgba(0,0,0,0.3); border-color:rgba(224,56,128,0.25);
+}
+.team-card.featured { border-color:rgba(240,160,0,0.35); background:rgba(240,160,0,0.04); }
+.team-badge-top {
+  position:absolute; top:-12px; left:50%; transform:translateX(-50%);
+  padding:4px 16px; background:var(--grad-amber);
+  border-radius:50px; font-size:0.7rem; font-weight:700; color:#07060C; white-space:nowrap;
+}
+.team-avatar {
+  width:78px; height:78px; border-radius:50%; margin:0 auto 14px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.4rem; font-weight:800; color:#fff; overflow:hidden;
+}
+.team-card h3    { font-size:1.05rem; font-weight:700; margin-bottom:5px; }
+.team-role       { font-size:0.8rem; color:var(--rose-lt); font-weight:500; margin-bottom:10px; }
+.team-desc       { font-size:0.82rem; color:var(--text-1); line-height:1.6; margin-bottom:14px; }
+.team-tags       { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; }
+.team-tag {
+  font-size:0.68rem; padding:3px 10px; border-radius:50px;
+  background:rgba(224,56,128,0.12); border:1px solid rgba(224,56,128,0.22); color:var(--rose-lt);
+}
+.team-github-btn {
+  display:inline-flex; align-items:center; gap:7px;
+  margin-top:14px; padding:9px 18px; border-radius:50px;
+  background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12);
+  color:var(--text-1); font-size:0.78rem; font-weight:600;
+  transition:var(--t); text-decoration:none; width:100%; justify-content:center;
+}
+.team-github-btn svg { width:16px; height:16px; flex-shrink:0; }
+.team-github-btn:hover {
+  background:var(--rose); border-color:var(--rose); color:#fff;
+  transform:translateY(-2px); box-shadow:0 6px 20px rgba(224,56,128,0.35);
+}
+
+/* ────────────────────────────────────────────
+   15. GUIDE BOOK
+──────────────────────────────────────────── */
+.guidebook-section {
+  background:linear-gradient(180deg,var(--bg-1) 0%,var(--bg-2) 50%,var(--bg-1) 100%);
+  position:relative; overflow:hidden;
+}
+.guidebook-section::before {
+  content:''; position:absolute; top:30%; left:50%;
+  transform:translate(-50%,-50%); width:700px; height:420px;
+  background:radial-gradient(ellipse, rgba(240,160,0,0.07), transparent 70%);
+  pointer-events:none;
+}
+.guidebook-hero-card {
+  display:flex; gap:36px; align-items:stretch;
+  background:var(--bg-card); border:1px solid var(--border-amb);
+  border-radius:var(--r-lg); padding:36px;
+  position:relative; overflow:hidden; transition:var(--t);
+}
+.guidebook-hero-card::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg,rgba(240,160,0,0.04), transparent 60%);
+  pointer-events:none;
+}
+.guidebook-hero-card:hover { border-color:rgba(240,160,0,0.45); box-shadow:0 24px 80px rgba(240,160,0,0.08); }
+.gb-card-left { display:flex; gap:22px; align-items:flex-start; flex:1; }
+.gb-icon-wrap {
+  flex-shrink:0; width:68px; height:68px; border-radius:var(--r);
+  background:linear-gradient(135deg,rgba(240,160,0,0.18),rgba(224,56,128,0.1));
+  border:1px solid var(--border-amb);
+  display:flex; align-items:center; justify-content:center;
+}
+.gb-icon      { width:34px; height:34px; color:var(--amber); }
+.gb-meta      { flex:1; }
+.gb-title     { font-size:1.35rem; font-weight:800; letter-spacing:-0.02em; margin-bottom:4px; }
+.gb-subtitle  { color:var(--amber); font-size:0.83rem; font-weight:600; margin-bottom:12px; }
+.gb-details   { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:14px; }
+.gb-detail-chip {
+  padding:3px 11px; border-radius:50px; background:rgba(240,160,0,0.1);
+  border:1px solid rgba(240,160,0,0.22); font-size:0.72rem; font-weight:500; color:var(--amber);
+}
+.gb-description { font-size:0.87rem; color:var(--text-1); line-height:1.75; }
+.gb-card-right {
+  display:flex; flex-direction:column; gap:14px;
+  align-items:center; width:250px; flex-shrink:0;
+}
+.gb-preview-thumb {
+  width:100%; aspect-ratio:3/4; max-height:210px;
+  border-radius:var(--r); background:linear-gradient(135deg,#100E1E,#15121F);
+  border:1px solid rgba(240,160,0,0.22); position:relative; overflow:hidden;
+  cursor:pointer; transition:var(--t); display:block;
+}
+.gb-preview-thumb:hover { border-color:var(--amber); box-shadow:0 8px 32px rgba(240,160,0,0.2); transform:scale(1.02); }
+.gb-preview-overlay {
+  position:absolute; inset:0; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:10px;
+  background:rgba(7,6,12,0.5); backdrop-filter:blur(2px); z-index:2; transition:background 0.3s;
+}
+.gb-preview-thumb:hover .gb-preview-overlay { background:rgba(7,6,12,0.28); }
+.gb-play-btn {
+  width:54px; height:54px; border-radius:50%;
+  background:var(--grad-amber); display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 20px rgba(240,160,0,0.42); transition:transform 0.3s;
+}
+.gb-preview-thumb:hover .gb-play-btn { transform:scale(1.12); }
+.gb-play-btn svg { width:24px; height:24px; color:#07060C; }
+.gb-preview-label { font-size:0.78rem; font-weight:700; color:#fff; letter-spacing:0.04em; }
+.gb-page-lines { position:absolute; inset:0; padding:18px 22px; display:flex; flex-direction:column; gap:10px; z-index:1; }
+.gb-page-line { height:3px; background:rgba(255,255,255,0.055); border-radius:2px; }
+.gb-page-line.short { width:60%; }
+.gb-actions { display:flex; flex-direction:column; gap:9px; width:100%; }
+.gb-btn {
+  display:flex; align-items:center; justify-content:center;
+  gap:8px; padding:12px 18px; border-radius:var(--r);
+  font-size:0.875rem; font-weight:700; border:none; transition:var(--t);
+}
+.gb-btn svg { width:17px; height:17px; flex-shrink:0; }
+.gb-btn-read { background:var(--grad-rose); color:#fff; box-shadow:0 4px 20px rgba(224,56,128,0.32); width:100%; }
+.gb-btn-read:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(224,56,128,0.52); }
+
+/* ────────────────────────────────────────────
+   16. FOOTER
+──────────────────────────────────────────── */
+.footer { background:var(--bg-0); border-top:1px solid var(--border); padding:40px 0; position:relative; z-index:1; }
+.footer-inner { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; }
+.footer-brand { display:flex; align-items:center; gap:12px; }
+.footer-logo  { width:42px; height:42px; border-radius:50%; border:2px solid var(--amber); object-fit:cover; }
+.footer-title { font-weight:700; font-size:0.95rem; }
+.footer-sub   { font-size:0.75rem; color:var(--text-2); }
+.footer-links { display:flex; gap:20px; flex-wrap:wrap; }
+.footer-links a { font-size:0.82rem; color:var(--text-1); transition:color 0.2s; }
+.footer-links a:hover { color:var(--amber); }
+.footer-copy  { font-size:0.78rem; color:var(--text-2); }
+
+/* Footer contributors strip */
+.footer-contributors {
+  border-top:1px solid var(--border);
+  margin-top:22px; padding-top:18px;
+  display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+}
+.footer-contrib-label {
+  font-size:0.72rem; font-weight:700; color:var(--text-2);
+  text-transform:uppercase; letter-spacing:0.08em; flex-shrink:0;
+}
+.footer-contrib-list { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.footer-contrib-chip {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:6px 14px; border-radius:50px;
+  background:rgba(255,255,255,0.04); border:1px solid var(--border);
+  color:var(--text-1); font-size:0.78rem; font-weight:500;
+  text-decoration:none; transition:var(--t);
+}
+.footer-contrib-chip img {
+  width:22px; height:22px; border-radius:50%; object-fit:cover; flex-shrink:0;
+}
+.footer-contrib-chip:hover {
+  background:rgba(240,160,0,0.1); border-color:var(--amber);
+  color:var(--amber); transform:translateY(-2px);
+}
+.footer-contrib-all {
+  background:rgba(224,56,128,0.08); border-color:rgba(224,56,128,0.25); color:var(--rose-lt);
+}
+.footer-contrib-all:hover {
+  background:var(--rose); border-color:var(--rose); color:#fff;
+}
+
+/* ────────────────────────────────────────────
+   17. LIGHTBOX
+──────────────────────────────────────────── */
+.lightbox {
+  position:fixed; inset:0; background:rgba(0,0,0,0.94);
+  backdrop-filter:blur(14px); z-index:9999;
+  display:none; align-items:center; justify-content:center; padding:40px 20px;
+}
+.lightbox.open { display:flex; }
+.lb-content {
+  position:relative; max-width:90vw; max-height:85vh;
+  display:flex; flex-direction:column; align-items:center; gap:14px;
+}
+#lbImage {
+  max-width:100%; max-height:78vh; border-radius:var(--r);
+  box-shadow:0 32px 80px rgba(0,0,0,0.85); animation:zoomIn 0.28s ease;
+}
+@keyframes zoomIn {
+  from { transform:scale(0.86); opacity:0; }
+  to   { transform:scale(1); opacity:1; }
+}
+.lb-caption { color:var(--text-1); font-size:0.87rem; text-align:center; }
+.lb-close {
+  position:absolute; top:16px; right:16px; width:42px; height:42px;
+  border-radius:50%; background:rgba(255,255,255,0.07); border:1px solid var(--border);
+  color:var(--text-0); font-size:1.1rem; cursor:pointer; transition:var(--t); z-index:10001;
+}
+.lb-close:hover { background:var(--coral); border-color:var(--coral); }
+.lb-prev,.lb-next {
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:48px; height:48px; border-radius:50%; background:rgba(255,255,255,0.07);
+  border:1px solid var(--border); color:var(--text-0); font-size:1.6rem;
+  cursor:pointer; transition:var(--t); z-index:10001;
+  display:flex; align-items:center; justify-content:center;
+}
+.lb-prev { left:16px; }
+.lb-next { right:16px; }
+.lb-prev:hover,.lb-next:hover { background:var(--rose); border-color:var(--rose); }
+
+/* ────────────────────────────────────────────
+   18. PROJECT MODAL
+──────────────────────────────────────────── */
+.lib-modal {
+  position:fixed; inset:0; background:rgba(0,0,0,0.88);
+  backdrop-filter:blur(16px); z-index:9998;
+  display:none; align-items:center; justify-content:center; padding:20px;
+}
+.lib-modal.open { display:flex; }
+.lib-modal-inner {
+  background:linear-gradient(135deg,#100E1A 0%,#0D0B17 100%);
+  border:1px solid var(--border-rose); border-radius:var(--r-lg);
+  padding:0; max-width:560px; width:100%; position:relative;
+  animation:slideUp 0.32s cubic-bezier(0.34,1.56,0.64,1);
+  max-height:90vh; overflow-y:auto;
+}
+@keyframes slideUp {
+  from { transform:translateY(38px) scale(0.94); opacity:0; }
+  to   { transform:translateY(0) scale(1); opacity:1; }
+}
+.modal-close {
+  position:absolute; top:14px; right:14px; z-index:2;
+  width:34px; height:34px; border-radius:50%;
+  background:rgba(7,6,12,0.7); backdrop-filter:blur(6px);
+  border:1px solid var(--border); color:var(--text-0);
+  font-size:0.95rem; transition:var(--t);
+}
+.modal-close:hover { background:var(--coral); border-color:var(--coral); }
+.modal-shot-wrap {
+  width:100%; aspect-ratio:16/10; overflow:hidden;
+  border-radius:var(--r-lg) var(--r-lg) 0 0;
+  background:linear-gradient(135deg,#150E22 0%,#1A1128 55%,#150E22 100%);
+  display:flex; align-items:center; justify-content:center;
+}
+.modal-shot-wrap img { width:100%; height:100%; object-fit:cover; display:block; }
+.modal-shot-wrap .modal-shot-placeholder { font-size:3.5rem; }
+.modal-body-wrap { padding:28px 32px 32px; }
+.modal-title   { font-size:1.5rem; font-weight:800; margin-bottom:6px; letter-spacing:-0.02em; }
+.modal-tagline { color:var(--rose-lt); font-size:0.85rem; font-weight:600; margin-bottom:16px; }
+.modal-body    { color:var(--text-1); font-size:0.9rem; line-height:1.75; }
+.modal-body p  { margin-bottom:11px; }
+.modal-body strong { color:var(--text-0); }
+.modal-launch-btn {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  width:100%; margin-top:8px; padding:13px 22px;
+  background:var(--grad-rose); color:#fff; border-radius:var(--r);
+  font-weight:700; font-size:0.9rem; transition:var(--t);
+}
+.modal-launch-btn:hover { opacity:0.9; transform:translateY(-2px); box-shadow:0 8px 24px rgba(224,56,128,0.38); }
+.modal-launch-btn svg { width:16px; height:16px; }
+.modal-launch-btn.disabled {
+  background:var(--bg-card); color:var(--text-2); border:1px solid var(--border);
+  cursor:not-allowed; pointer-events:none;
+}
+.modal-launch-btn.disabled:hover { transform:none; box-shadow:none; }
+
+/* ────────────────────────────────────────────
+   19. SCROLLBAR
+──────────────────────────────────────────── */
+::-webkit-scrollbar { width:5px; }
+::-webkit-scrollbar-track { background:var(--bg-0); }
+::-webkit-scrollbar-thumb { background:rgba(224,56,128,0.35); border-radius:3px; }
+::-webkit-scrollbar-thumb:hover { background:var(--rose); }
+
+/* ────────────────────────────────────────────
+   20. REVEAL ANIMATION
+──────────────────────────────────────────── */
+.reveal { opacity:0; transform:translateY(28px); transition:opacity 0.65s ease, transform 0.65s ease; }
+.reveal.revealed { opacity:1; transform:translateY(0); }
+
+/* ════════════════════════════════════════════
+   21. RESPONSIVE — TABLET (≤1024px)
+════════════════════════════════════════════ */
+@media (max-width:1024px){
+  .hero { grid-template-columns:1fr; padding:100px 32px 60px; text-align:center; gap:32px; }
+  .hero-content { display:flex; flex-direction:column; align-items:center; }
+  .hero-subtitle { max-width:100%; }
+  .hero-visual,.hero-scroll-indicator { display:none; }
+  .hero-stats  { justify-content:center; }
+  .about-grid  { grid-template-columns:1fr; gap:36px; }
+  .about-img-stack { display:none; }
+  .features-grid { grid-template-columns:1fr; }
+  .lib-card    { flex:1 1 130px; }
+  .inaction-grid { grid-template-columns:repeat(2,1fr); }
+}
+
+/* ════════════════════════════════════════════
+   22. RESPONSIVE — MOBILE (≤768px)
+════════════════════════════════════════════ */
+@media (max-width:768px){
+  /* Nav */
+  .nav-links {
+    display:none; position:fixed;
+    top:64px; left:0; right:0; bottom:0;
+    background:rgba(7,6,12,0.98); backdrop-filter:blur(20px);
+    flex-direction:column; padding:28px 20px; gap:4px;
+    z-index:999; overflow-y:auto; border-top:1px solid var(--border);
+  }
+  .nav-links.open { display:flex; }
+  .nav-link {
+    padding:14px 18px; font-size:1rem;
+    border-radius:var(--r-sm); text-align:left;
+    border-bottom:1px solid var(--border);
+  }
+  .nav-link:last-child { border-bottom:none; }
+  .hamburger { display:flex; }
+
+  /* Layout */
+  .section { padding:62px 0; }
+  .hero    { padding:90px 20px 48px; }
+  .hero-title { font-size:clamp(2rem,8vw,2.8rem); }
+  .hero-subtitle { font-size:0.95rem; }
+  .hero-cta { justify-content:center; }
+  .btn { padding:12px 22px; font-size:0.875rem; }
+  .hero-stats  { gap:16px; }
+  .stat-value  { font-size:1.5rem; }
+  .stat-divider{ height:28px; }
+
+  /* Features */
+  .features-grid { grid-template-columns:1fr; gap:14px; }
+  .feature-card  { padding:22px; }
+
+  /* In Action */
+  .inaction-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
+  .inaction-item.large { grid-column:span 2; grid-row:span 1; aspect-ratio:16/9; }
+  .inaction-caption { transform:translateY(0); }
+
+  /* Tech stack */
+  .lib-grid  { gap:10px; }
+  .lib-card  { flex:1 1 calc(50% - 10px); max-width:calc(50% - 5px); min-width:unset; padding:16px 12px; }
+  .lib-logo,.lib-logo-text { width:44px; height:44px; }
+
+  /* Team / Profile */
+  .team-card-mentor { max-width:100%; }
+
+  /* Guide Book */
+  .guidebook-hero-card { flex-direction:column; padding:28px; }
+  .gb-card-right { width:100%; flex-direction:row; gap:16px; }
+  .gb-preview-thumb { max-height:160px; flex:1; }
+  .gb-actions { flex:1; justify-content:center; }
+
+  /* Project modal — fit mobile screen */
+  .lib-modal { padding:0; align-items:flex-end; }
+  .lib-modal-inner {
+    max-width:100%; width:100%; max-height:92vh;
+    border-radius:var(--r-lg) var(--r-lg) 0 0;
+    border-left:none; border-right:none; border-bottom:none;
+    animation:slideUpMobile 0.32s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  @keyframes slideUpMobile {
+    from { transform:translateY(100%); opacity:0; }
+    to   { transform:translateY(0); opacity:1; }
+  }
+  .modal-shot-wrap { aspect-ratio:16/9; border-radius:var(--r-lg) var(--r-lg) 0 0; }
+  .modal-shot-wrap .modal-shot-placeholder { font-size:2.8rem; }
+  .modal-body-wrap { padding:20px 18px 22px; }
+  .modal-title   { font-size:1.25rem; }
+  .modal-tagline { font-size:0.8rem; margin-bottom:12px; }
+  .modal-body    { font-size:0.85rem; }
+  .modal-launch-btn { padding:12px 18px; font-size:0.85rem; }
+  .modal-close   { top:10px; right:10px; width:32px; height:32px; }
+
+  /* Footer */
+  .footer-inner { flex-direction:column; text-align:center; gap:16px; }
+  .footer-links { justify-content:center; gap:14px; }
+
+  /* Lightbox */
+  .lb-prev { left:6px; }
+  .lb-next { right:6px; }
+  .lb-prev,.lb-next { width:38px; height:38px; font-size:1.3rem; }
+}
+
+/* ════════════════════════════════════════════
+   23. RESPONSIVE — SMALL MOBILE (≤480px)
+════════════════════════════════════════════ */
+@media (max-width:480px){
+  .hero { padding:88px 16px 44px; }
+  .hero-title { font-size:1.95rem; }
+  .hero-cta   { flex-direction:column; width:100%; }
+  .btn        { width:100%; }
+  .hero-stats { gap:12px; }
+  .stat-value { font-size:1.3rem; }
+  .container  { padding:0 16px; }
+
+  /* In Action collapses to single column on very small screens */
+  .inaction-grid { grid-template-columns:1fr; gap:10px; }
+  .inaction-item.large { grid-column:span 1; aspect-ratio:4/3; }
+
+  .lib-card   { flex:1 1 calc(50% - 8px); max-width:calc(50% - 4px); }
+  .section    { padding:52px 0; }
+  .section-title { font-size:1.75rem; }
+
+  /* Project modal — edge-to-edge on small phones */
+  .lib-modal-inner { max-height:94vh; }
+  .modal-shot-wrap { aspect-ratio:4/3; }
+  .modal-body-wrap { padding:18px 16px 20px; }
+  .modal-title   { font-size:1.15rem; }
+
+  /* Guide Book */
+  .guidebook-hero-card { flex-direction:column; padding:22px; gap:22px; }
+  .gb-card-left  { flex-direction:column; gap:16px; }
+  .gb-card-right { width:100%; flex-direction:column; }
+  .gb-preview-thumb { max-height:180px; aspect-ratio:5/3; }
+}
+
+</style>
+</head>
+<body>
+
+  <!-- ─── PARTICLES CANVAS ─── -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- ─── NAVBAR ─── -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <img src="Logo (2).jpeg" alt="Project Logo" class="nav-logo-img" />
+        <span class="nav-logo-text">Fun<span class="accent">Stack</span></span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#hero" class="nav-link active">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#stack" class="nav-link">Websites & Games Stack</a></li>
+        <li><a href="#inaction" class="nav-link">In Action</a></li>
+        <li><a href="#team" class="nav-link">Ravi's Profile</a></li>
+        <li><a href="#guidebook" class="nav-link nav-link-notebook">📖 Guide Book</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section id="hero" class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="pulse-dot"></span>
+        Creative Coding Portfolio · 2026
+      </div>
+      <h1 class="hero-title">
+        A Fun Stack of<br />
+        <span class="gradient-text">Websites & Games</span>
+      </h1>
+      <p class="hero-subtitle">
+        A growing, ever-updating collection of websites, browser games, and
+        Scratch creations — built for fun, learning, and endless experimenting.
+      </p>
+      <div class="hero-cta">
+        <a href="#features" class="btn btn-primary">Explore Features</a>
+        <a href="#stack" class="btn btn-outline">Websites & Games Stack</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-value">4+</span>
+          <span class="stat-label">Project Categories</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-value">100%</span>
+          <span class="stat-label">Built for Fun</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-value">∞</span>
+          <span class="stat-label">Ideas in the Works</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-phone-wrap">
+        <div class="scan-ring ring1"></div>
+        <div class="scan-ring ring2"></div>
+        <div class="scan-ring ring3"></div>
+        <div class="hero-screenshot hero-showcase-card">
+          <span>🎮🌐</span>
+        </div>
+        <div class="alert-badge-float alert-1">🎮 New Game</div>
+        <div class="alert-badge-float alert-2">🌐 New Site</div>
+        <div class="alert-badge-float alert-3">✨ Fresh Build</div>
+      </div>
+    </div>
+    <div class="hero-scroll-indicator">
+      <span>Scroll to explore</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ─── ABOUT ─── -->
+  <section id="about" class="section about-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Overview</span>
+        <h2 class="section-title">What is <span class="gradient-text">FunStack</span>?</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="lead-text">
+            Most personal project pages are static resumes that only list
+            finished work, or scattered links spread across GitHub, Scratch,
+            and random hosting sites.
+          </p>
+          <p>
+            <strong>FunStack</strong> solves this by bringing everything into
+            one place — a single, growing hub for <em>websites</em>,
+            <em>browser games</em>, and <em>Scratch creations</em>, all built
+            for fun and learning, and updated as new ideas come to life.
+          </p>
+          <div class="about-highlight-cards">
+            <div class="highlight-card">
+              <span class="hc-icon">🎮</span>
+              <div>
+                <h4>Playable Anytime</h4>
+                <p>Every game and site here is live and ready to click.</p>
+              </div>
+            </div>
+            <div class="highlight-card">
+              <span class="hc-icon">🌱</span>
+              <div>
+                <h4>Always Growing</h4>
+                <p>New projects get added as new ideas come to life.</p>
+              </div>
+            </div>
+            <div class="highlight-card">
+              <span class="hc-icon">🛠️</span>
+              <div>
+                <h4>Built From Scratch</h4>
+                <p>Made with code, creativity, and a lot of trial &amp; error.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="about-visual">
+          <div class="about-img-stack">
+            <div class="about-img about-img-main about-img-placeholder">
+              <span>🌐</span>
+            </div>
+            <div class="about-img about-img-overlay about-img-placeholder">
+              <span>🎮</span>
+            </div>
+            <div class="about-badge">
+              <span class="badge-icon">🚀</span>
+              FunStack
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FEATURES ─── -->
+  <section id="features" class="section features-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Highlights</span>
+        <h2 class="section-title">Core <span class="gradient-text">Features</span></h2>
+        <p class="section-sub">Five fun categories, all part of one growing stack</p>
+      </div>
+      <div class="features-grid">
+
+        <div class="feature-card" id="feat-projects">
+          <div class="feat-icon-wrap feat-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+          </div>
+          <h3>Ravi's Projects Stack</h3>
+          <p>A hands-on collection of personal builds — a mix of code, design, and problem solving, growing with every new idea.</p>
+        </div>
+
+        <div class="feature-card" id="feat-scratch">
+          <div class="feat-icon-wrap feat-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+          </div>
+          <h3>Ravi Scratch Games Stack</h3>
+          <p>Fun, colorful games built visually in Scratch — perfect for quick play and creative experimenting.</p>
+        </div>
+
+        <div class="feature-card" id="feat-coding-games">
+          <div class="feat-icon-wrap feat-red">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/><path d="M6 15V6h12v9"/></svg>
+          </div>
+          <h3>Ravi Coding Games</h3>
+          <p>Games built from scratch (the code kind!) using real programming languages, logic, and a lot of debugging.</p>
+        </div>
+
+        <div class="feature-card" id="feat-websites">
+          <div class="feat-icon-wrap feat-orange">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <h3>Amazing Websites</h3>
+          <p>Responsive, good-looking websites — built for real use cases, from portfolios to small tools.</p>
+        </div>
+
+        <div class="feature-card" id="feat-browser">
+          <div class="feat-icon-wrap feat-purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><circle cx="6" cy="8" r="0.5" fill="currentColor"/><circle cx="9" cy="8" r="0.5" fill="currentColor"/><line x1="2" y1="10" x2="22" y2="10"/><polygon points="10 13 10 18 15 15.5"/></svg>
+          </div>
+          <h3>Browser Games</h3>
+          <p>Games that run straight in the browser — no downloads, no installs, just click and play.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TECH STACK ─── -->
+  <section id="stack" class="section stack-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Technologies</span>
+        <h2 class="section-title">Websites and <span class="gradient-text">Games Stack</span></h2>
+        <p class="section-sub">More projects landing here soon</p>
+      </div>
+      <div class="stack-categories">
+
+        <div class="stack-category">
+          <h3 class="category-label">🚀 Ravi's Projects Stack</h3>
+          <div class="lib-grid">
+            <div class="lib-card" id="lib-proj-1" onclick="openProjectModal('proj-1')">
+              <img src="mmq-timer-logo.png" alt="Advanced MMQ Timer" class="lib-logo" />
+              <span class="lib-name">Advanced MMQ Timer</span>
+              <span class="lib-role">Web App</span>
+              <div class="lib-hover-hint">Click to learn more →</div>
+            </div>
+            <div class="lib-card" id="lib-proj-2" onclick="openProjectModal('proj-2')">
+              <img src="rebellion1857-logo.png" alt="The Great Rebellion of 1857" class="lib-logo" />
+              <span class="lib-name">The Great Rebellion of 1857</span>
+              <span class="lib-role">History Website</span>
+              <div class="lib-hover-hint">Click to learn more →</div>
+            </div>
+            <div class="lib-card lib-card-empty" onclick="openProjectModal('proj-3')">
+              <div class="lib-logo lib-logo-text" style="background:linear-gradient(135deg,#6C63FF,#3B82F6)">🚀</div>
+              <span class="lib-name">Add Project</span>
+              <span class="lib-role">Coming Soon</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack-category">
+          <h3 class="category-label">🎮 Ravi Scratch Games Stack</h3>
+          <div class="lib-grid">
+            <div class="lib-card" id="lib-scratch-1" onclick="openProjectModal('scratch-1')">
+              <img src="pong-logo.png" alt="Multiplayer Pong" class="lib-logo" />
+              <span class="lib-name">Multiplayer Pong</span>
+              <span class="lib-role">2-Player Game</span>
+            </div>
+            <div class="lib-card" id="lib-scratch-2" onclick="openProjectModal('scratch-2')">
+              <img src="zombie-shooter-logo.png" alt="Zombie Shooter" class="lib-logo" />
+              <span class="lib-name">Zombie Shooter</span>
+              <span class="lib-role">Scratch Game</span>
+              <div class="lib-hover-hint">Click to learn more →</div>
+            </div>
+            <div class="lib-card lib-card-empty" onclick="openProjectModal('scratch-3')">
+              <div class="lib-logo lib-logo-text" style="background:linear-gradient(135deg,#FFB100,#FF7A00)">🧩</div>
+              <span class="lib-name">Add Scratch Game</span>
+              <span class="lib-role">Coming Soon</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack-category">
+          <h3 class="category-label">🕹️ Ravi Coding Games</h3>
+          <div class="lib-grid">
+            <div class="lib-card lib-card-empty" onclick="openProjectModal('codegame-1')">
+              <div class="lib-logo lib-logo-text" style="background:linear-gradient(135deg,#2DD4BF,#0E9B8A)">🎲</div>
+              <span class="lib-name">Add Coded Game</span>
+              <span class="lib-role">Coming Soon</span>
+            </div>
+            <div class="lib-card lib-card-empty" onclick="openProjectModal('codegame-2')">
+              <div class="lib-logo lib-logo-text" style="background:linear-gradient(135deg,#2DD4BF,#0E9B8A)">🎲</div>
+              <span class="lib-name">Add Coded Game</span>
+              <span class="lib-role">Coming Soon</span>
+            </div>
+            <div class="lib-card lib-card-empty" onclick="openProjectModal('codegame-3')">
+              <div class="lib-logo lib-logo-text" style="background:linear-gradient(135deg,#2DD4BF,#0E9B8A)">🎲</div>
+              <span class="lib-name">Add Coded Game</span>
+              <span class="lib-role">Coming Soon</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack-category">
+          <h3 class="category-label">🌐 Amazing Websites</h3>
+          <div class="lib-grid">
+            <div class="lib-card lib-card-empty" onclick="openProjectModal('website-1')">
+              <div class="lib-logo lib-logo-text" style="background:linear-gradient(135deg,#E44D26,#F16529)">🌐</div>
+              <span class="lib-name">Add Website</span>
+              <span class="lib-role">Coming Soon</span>
+            </div>
+            <div class="lib-card lib-card-empty" onclick="openProjectModal('website-2')">
+              <div class="lib-logo lib-logo-text" style="background:linear-gradient(135deg,#E44D26,#F16529)">🌐</div>
+              <span class="lib-name">Add Website</span>
+              <span class="lib-role">Coming Soon</span>
+            </div>
+            <div class="lib-card lib-card-empty" onclick="openProjectModal('website-3')">
+              <div class="lib-logo lib-logo-text" style="background:linear-gradient(135deg,#E44D26,#F16529)">🌐</div>
+              <span class="lib-name">Add Website</span>
+              <span class="lib-role">Coming Soon</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack-category">
+          <h3 class="category-label">🕹️ Browser Games</h3>
+          <div class="lib-grid">
+            <div class="lib-card" id="lib-browser-1" onclick="openProjectModal('browser-1')">
+              <img src="https://deadshot.io/promo/thumbnail.png" alt="DEADSHOT.io" class="lib-logo" />
+              <span class="lib-name">DEADSHOT.io</span>
+              <span class="lib-role">Browser Game</span>
+              <div class="lib-hover-hint">Click to learn more →</div>
+            </div>
+            <div class="lib-card lib-card-empty" onclick="openProjectModal('browser-2')">
+              <div class="lib-logo lib-logo-text" style="background:linear-gradient(135deg,#9B3FBF,#6C63FF)">🕹️</div>
+              <span class="lib-name">Add Browser Game</span>
+              <span class="lib-role">Coming Soon</span>
+            </div>
+            <div class="lib-card lib-card-empty" onclick="openProjectModal('browser-3')">
+              <div class="lib-logo lib-logo-text" style="background:linear-gradient(135deg,#9B3FBF,#6C63FF)">🕹️</div>
+              <span class="lib-name">Add Browser Game</span>
+              <span class="lib-role">Coming Soon</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── IN ACTION ─── -->
+  <section id="inaction" class="section inaction-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Screenshots</span>
+        <h2 class="section-title">In <span class="gradient-text">Action</span></h2>
+        <p class="section-sub">A growing collage of screenshots from every project</p>
+      </div>
+      <div class="inaction-grid" id="inactionGrid">
+        <div class="inaction-item large" onclick="openProjectModal('scratch-1')">
+          <img src="pong-screenshot.jpeg" alt="Multiplayer Pong Game" />
+          <div class="inaction-caption">
+            <span class="ia-tag">Scratch Game</span>
+            <p>Multiplayer Pong — 2-player match with a baseball ball and painted forest backdrop</p>
+          </div>
+        </div>
+        <div class="inaction-item" onclick="openProjectModal('scratch-2')">
+          <img src="zombie-shooter-screenshot.jpeg" alt="Zombie Shooter Game" />
+          <div class="inaction-caption">
+            <span class="ia-tag">Scratch Game</span>
+            <p>Zombie Shooter — survive the horde closing in from every side</p>
+          </div>
+        </div>
+        <div class="inaction-item" onclick="openProjectModal('proj-1')">
+          <img src="mmq-timer-screenshot.jpeg" alt="Advanced MMQ Timer" />
+          <div class="inaction-caption">
+            <span class="ia-tag">Web App</span>
+            <p>Advanced MMQ Timer — log and review question-answer timing drills</p>
+          </div>
+        </div>
+        <div class="inaction-item" onclick="openProjectModal('proj-2')">
+          <img src="rebellion1857-screenshot.jpeg" alt="The Great Rebellion of 1857" />
+          <div class="inaction-caption">
+            <span class="ia-tag">Website</span>
+            <p>The Great Rebellion of 1857 — an interactive history deep-dive</p>
+          </div>
+        </div>
+        <div class="inaction-item" onclick="openProjectModal('browser-1')">
+          <img src="https://deadshot.io/promo/thumbnail.png" alt="DEADSHOT.io" />
+          <div class="inaction-caption">
+            <span class="ia-tag">Browser Game</span>
+            <p>DEADSHOT.io — multiplayer FPS, straight in the browser</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TEAM ─── -->
+  <section id="team" class="section team-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Ravi's <span class="gradient-text">Profile</span></h2>
+      </div>
+
+      <div class="team-mentor-row">
+        <div class="team-card team-card-mentor featured">
+          <div class="team-avatar" style="background:linear-gradient(135deg,#F0A000,#E03880)">
+            <span>KR</span>
+          </div>
+          <h3>K.R. Ravi Raj</h3>
+          <p class="team-role">Design &amp; UX Lead</p>
+          <p class="team-desc">
+            Designed the FunStack portfolio dashboard — page layout, colors, and the complete visual
+            identity of the project. Built the user-friendly interface used to showcase every game and site.
+          </p>
+          <div class="team-tags">
+            <span class="team-tag">UI/UX Design</span>
+            <span class="team-tag">Dashboard</span>
+            <span class="team-tag">HTML · CSS · JS</span>
+          </div>
+          <a href="https://github.com/Ravi13coder" target="_blank" rel="noopener" class="team-github-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.745 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            GitHub · Ravi13coder
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── GUIDE BOOK ─── -->
+  <section id="guidebook" class="section guidebook-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Documentation</span>
+        <h2 class="section-title">Guide <span class="gradient-text">Book</span></h2>
+        <p class="section-sub">A growing guide to every project in the stack</p>
+      </div>
+
+      <div class="guidebook-hero-card">
+        <div class="gb-card-left">
+          <div class="gb-icon-wrap">
+            <svg class="gb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <div class="gb-meta">
+            <h3 class="gb-title">FunStack Guide Book</h3>
+            <p class="gb-subtitle">Websites &amp; Games · 2026</p>
+            <div class="gb-details">
+              <span class="gb-detail-chip">📘 Step-by-Step</span>
+              <span class="gb-detail-chip">🎮 Games &amp; Websites</span>
+              <span class="gb-detail-chip">✨ Updated Often</span>
+            </div>
+            <p class="gb-description">
+              A growing guide covering how each website and game in this stack was built —
+              tools used, lessons learned, and tips for anyone trying it themselves.
+            </p>
+          </div>
+        </div>
+        <div class="gb-card-right">
+          <a href="#" target="_blank" rel="noopener" class="gb-preview-thumb" id="guideBookThumb">
+            <div class="gb-preview-overlay">
+              <div class="gb-play-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+              <span class="gb-preview-label">Click to Read</span>
+            </div>
+            <div class="gb-page-lines">
+              <div class="gb-page-line"></div>
+              <div class="gb-page-line"></div>
+              <div class="gb-page-line short"></div>
+              <div class="gb-page-line"></div>
+              <div class="gb-page-line short"></div>
+            </div>
+          </a>
+          <div class="gb-actions">
+            <a href="#" target="_blank" rel="noopener" class="gb-btn gb-btn-read" id="guideBookLink">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              Read Guide Book
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <img src="Logo (2).jpeg" alt="Logo" class="footer-logo" />
+          <div>
+            <div class="footer-title">FunStack</div>
+          </div>
+        </div>
+        <div class="footer-links">
+          <a href="#hero">Home</a>
+          <a href="#features">Features</a>
+          <a href="#stack">Websites & Games Stack</a>
+          <a href="#inaction">In Action</a>
+          <a href="#team">Ravi's Profile</a>
+          <a href="#guidebook">📖 Guide Book</a>
+        </div>
+        <div class="footer-copy">
+          Built with ❤️ using HTML, CSS, JavaScript &amp; a lot of creativity
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ─── PROJECT MODAL ─── -->
+  <div class="lib-modal" id="projectModal" onclick="closeProjectModal()">
+    <div class="lib-modal-inner" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeProjectModal()">✕</button>
+      <div class="modal-shot-wrap" id="modalShotWrap">
+        <img id="modalShotImg" src="" alt="" style="display:none" />
+        <span class="modal-shot-placeholder" id="modalShotPlaceholder"></span>
+      </div>
+      <div class="modal-body-wrap">
+        <h2 id="modalTitle" class="modal-title"></h2>
+        <p id="modalTagline" class="modal-tagline"></p>
+        <div id="modalBody" class="modal-body"></div>
+        <a id="modalLaunchBtn" href="#" target="_blank" rel="noopener" class="modal-launch-btn" onclick="return handleLaunchClick(event)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <span id="modalLaunchLabel">Launch Project</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+/* ─────────────────────────────────────────────
+   FunStack — JavaScript
+   Particles · Lightbox · Library Modals · Nav
+───────────────────────────────────────────── */
+
+/* ══════════════════════════════════════════
+   1. PARTICLE CANVAS BACKGROUND
+══════════════════════════════════════════ */
+(function initParticles() {
+  const canvas = document.getElementById('particleCanvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  let W, H;
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function randomBetween(a, b) { return Math.random() * (b - a) + a; }
+
+  function createParticle() {
+    return {
+      x: randomBetween(0, W),
+      y: randomBetween(0, H),
+      r: randomBetween(0.5, 2.2),
+      vx: randomBetween(-0.3, 0.3),
+      vy: randomBetween(-0.5, -0.1),
+      alpha: randomBetween(0.2, 0.8),
+      color: ['#E03880', '#F272AB', '#F0A000', '#F6C040', '#2DD4BF'][Math.floor(Math.random() * 5)],
+    };
+  }
+
+  for (let i = 0; i < 120; i++) particles.push(createParticle());
+
+  function drawLine(p1, p2, dist) {
+    const alpha = (1 - dist / 120) * 0.12;
+    ctx.beginPath();
+    ctx.moveTo(p1.x, p1.y);
+    ctx.lineTo(p2.x, p2.y);
+    ctx.strokeStyle = `rgba(224,56,128,${alpha})`;
+    ctx.lineWidth = 0.5;
+    ctx.stroke();
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+
+    particles.forEach((p, i) => {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.y < -5) { p.y = H + 5; p.x = randomBetween(0, W); }
+      if (p.x < -5) p.x = W + 5;
+      if (p.x > W + 5) p.x = -5;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = p.color + Math.floor(p.alpha * 255).toString(16).padStart(2, '0');
+      ctx.fill();
+
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = p.x - particles[j].x;
+        const dy = p.y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120) drawLine(p, particles[j], dist);
+      }
+    });
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+
+/* ══════════════════════════════════════════
+   2. NAVBAR — Active Link + Hamburger
+══════════════════════════════════════════ */
+(function initNav() {
+  const navbar    = document.getElementById('navbar');
+  const hamburger = document.getElementById('hamburger');
+  const navLinks  = document.getElementById('navLinks');
+  const links     = document.querySelectorAll('.nav-link');
+
+  // Scroll: class toggle + active link
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+
+    const sections = document.querySelectorAll('section[id]');
+    sections.forEach(sec => {
+      const top    = sec.offsetTop - 90;
+      const bottom = top + sec.offsetHeight;
+      if (window.scrollY >= top && window.scrollY < bottom) {
+        links.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.nav-link[href="#${sec.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  });
+
+  // Hamburger toggle — also animate the icon
+  hamburger.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    // Prevent body scroll when menu is open
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  // Close menu on link click or outside tap
+  links.forEach(l => {
+    l.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      hamburger.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Close on backdrop tap (mobile)
+  document.addEventListener('click', (e) => {
+    if (
+      navLinks.classList.contains('open') &&
+      !navLinks.contains(e.target) &&
+      !hamburger.contains(e.target)
+    ) {
+      navLinks.classList.remove('open');
+      hamburger.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+})();
+
+
+/* ══════════════════════════════════════════
+   3. SCROLL REVEAL ANIMATIONS
+══════════════════════════════════════════ */
+(function initReveal() {
+  // Styles are now in style.css — no injection needed
+
+  const targets = document.querySelectorAll(
+    '.feature-card, .lib-card, .team-card, .about-highlight-cards .highlight-card, .inaction-item, .guidebook-hero-card'
+  );
+
+  targets.forEach((el, i) => {
+    el.classList.add('reveal');
+    el.style.transitionDelay = `${(i % 4) * 0.08}s`;
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('revealed');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  targets.forEach(el => observer.observe(el));
+})();
+
+/* ══════════════════════════════════════════
+   4. PROJECT MODAL
+══════════════════════════════════════════ */
+// Fill this in as projects get added — each key matches a card's
+// onclick="openProjectModal('key')". `img` can be a normal URL or a
+// base64 data: URI (used when a screenshot is embedded directly).
+const projectData = {
+  'proj-1':     { title: 'Advanced MMQ Timer', tagline: "Ravi's Projects Stack", img: 'mmq-timer-screenshot.jpeg', icon: '⏱️', url: 'https://ravi13coder.github.io/AdvanceMMQTimer/', desc: 'A speed-drill timer for practicing question sets — hit Start (or the spacebar) to log how long each question takes, then review a table of Question, Answer, and Time for every attempt. Times under 1.0s are auto-discarded, with Clear All and Undo to manage the log.' },
+  'proj-2':     { title: 'The Great Rebellion of 1857', tagline: "Ravi's Projects Stack", img: 'rebellion1857-screenshot.jpeg', icon: '🛡️', url: 'https://ravi13coder.github.io/1857-revolt/', desc: 'An interactive history page on India\'s Great Rebellion of 1857 — covering the causes, the spark that lit it, key figures, a timeline, why it failed, and the British response. Tap through tabs like Overview, Causes, and Quick Facts, with cards you tap to reveal more.' },
+  'proj-3':     { title: 'Add Project',       tagline: "Ravi's Projects Stack", img: null, icon: '🚀', url: null, desc: 'This project card is still a placeholder. Once added, a screenshot and description will show up here.' },
+  'scratch-1':  { title: 'Multiplayer Pong', tagline: 'Ravi Scratch Games Stack', img: 'pong-screenshot.jpeg', icon: '🧩', url: 'https://scratch.mit.edu/projects/1270736937/', desc: 'A two-player Pong game with a twist — a baseball stands in for the ball, set against a custom painted forest-and-castle backdrop. Player 1 and Player 2 each control a paddle, racing to rack up the higher score while a sound toggle sits front and center.' },
+  'scratch-2':  { title: 'Zombie Shooter',  tagline: 'Ravi Scratch Games Stack', img: 'zombie-shooter-screenshot.jpeg', icon: '🧟', url: 'https://scratch.mit.edu/projects/1271009820/', desc: 'A top-down survival shooter — zombies close in from every side while you aim and fire from the center. Track your score in the top-right corner and watch your heart count in the top-left as the horde gets closer. No sound in this one — just fast reflexes.' },
+  'scratch-3':  { title: 'Add Scratch Game',  tagline: 'Ravi Scratch Games Stack', img: null, icon: '🧩', url: null, desc: 'This game card is still a placeholder. Once added, a screenshot and description will show up here.' },
+  'codegame-1': { title: 'Add Coded Game',    tagline: 'Ravi Coding Games', img: null, icon: '🎲', url: null, desc: 'This game card is still a placeholder. Once added, a screenshot and description will show up here.' },
+  'codegame-2': { title: 'Add Coded Game',    tagline: 'Ravi Coding Games', img: null, icon: '🎲', url: null, desc: 'This game card is still a placeholder. Once added, a screenshot and description will show up here.' },
+  'codegame-3': { title: 'Add Coded Game',    tagline: 'Ravi Coding Games', img: null, icon: '🎲', url: null, desc: 'This game card is still a placeholder. Once added, a screenshot and description will show up here.' },
+  'website-1':  { title: 'Add Website',       tagline: 'Amazing Websites', img: null, icon: '🌐', url: null, desc: 'This website card is still a placeholder. Once added, a screenshot and description will show up here.' },
+  'website-2':  { title: 'Add Website',       tagline: 'Amazing Websites', img: null, icon: '🌐', url: null, desc: 'This website card is still a placeholder. Once added, a screenshot and description will show up here.' },
+  'website-3':  { title: 'Add Website',       tagline: 'Amazing Websites', img: null, icon: '🌐', url: null, desc: 'This website card is still a placeholder. Once added, a screenshot and description will show up here.' },
+  'browser-1':  { title: 'DEADSHOT.io', tagline: 'Browser Games', img: 'https://deadshot.io/promo/thumbnail.png', icon: '🔫', url: 'https://deadshot.io/', desc: 'A multiplayer online first-person shooter that runs straight in the browser — no downloads, no installs. Grab your friends, join a lobby, and eliminate your opponents across fast-paced matches and multiple game modes.' },
+  'browser-2':  { title: 'Add Browser Game',  tagline: 'Browser Games', img: null, icon: '🕹️', url: null, desc: 'This game card is still a placeholder. Once added, a screenshot and description will show up here.' },
+  'browser-3':  { title: 'Add Browser Game',  tagline: 'Browser Games', img: null, icon: '🕹️', url: null, desc: 'This game card is still a placeholder. Once added, a screenshot and description will show up here.' },
+};
+
+const projectModal = document.getElementById('projectModal');
+const modalShotImg = document.getElementById('modalShotImg');
+const modalShotPlaceholder = document.getElementById('modalShotPlaceholder');
+const modalTitle = document.getElementById('modalTitle');
+const modalTagline = document.getElementById('modalTagline');
+const modalBody = document.getElementById('modalBody');
+const modalLaunchBtn = document.getElementById('modalLaunchBtn');
+const modalLaunchLabel = document.getElementById('modalLaunchLabel');
+
+function openProjectModal(key) {
+  const data = projectData[key];
+  if (!data) return;
+
+  if (data.img) {
+    modalShotImg.src = data.img;
+    modalShotImg.alt = data.title;
+    modalShotImg.style.display = 'block';
+    modalShotPlaceholder.style.display = 'none';
+  } else {
+    modalShotImg.style.display = 'none';
+    modalShotPlaceholder.textContent = data.icon || '🖼️';
+    modalShotPlaceholder.style.display = 'block';
+  }
+
+  modalTitle.textContent = data.title;
+  modalTagline.textContent = data.tagline || '';
+  modalBody.innerHTML = `<p>${data.desc}</p>`;
+
+  if (data.url) {
+    modalLaunchBtn.href = data.url;
+    modalLaunchBtn.dataset.url = data.url;
+    modalLaunchBtn.classList.remove('disabled');
+    modalLaunchLabel.textContent = 'Launch Project';
+  } else {
+    modalLaunchBtn.href = '#';
+    modalLaunchBtn.dataset.url = '';
+    modalLaunchBtn.classList.add('disabled');
+    modalLaunchLabel.textContent = 'Link Coming Soon';
+  }
+
+  projectModal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function handleLaunchClick(e) {
+  const url = modalLaunchBtn.dataset.url;
+  if (!url) {
+    e.preventDefault();
+    return false;
+  }
+  e.preventDefault();
+  window.open(url, '_blank', 'noopener');
+  return false;
+}
+
+function closeProjectModal() {
+  projectModal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && projectModal.classList.contains('open')) {
+    closeProjectModal();
+  }
+});
+
+/* ══════════════════════════════════════════
+   7. ANIMATED COUNTER (Stats)
+══════════════════════════════════════════ */
+(function initCounters() {
+  function animateValue(el, start, end, duration, suffix) {
+    const range = end - start;
+    const startTime = performance.now();
+    function update(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(start + range * eased) + suffix;
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  const statsEl = document.querySelector('.hero-stats');
+  if (!statsEl) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      // Animate hero stat values
+      const statValues = document.querySelectorAll('.stat-value');
+      observer.disconnect();
+    }
+  }, { threshold: 0.5 });
+
+  observer.observe(statsEl);
+})();
+
+
+/* ══════════════════════════════════════════
+   8. SMOOTH SECTION TRANSITION GLOW
+══════════════════════════════════════════ */
+(function addSectionGlows() {
+  const glowColors = {
+    'hero': 'rgba(59,130,246,0.08)',
+    'about': 'rgba(6,182,212,0.06)',
+    'features': 'rgba(239,68,68,0.06)',
+    'stack': 'rgba(108,99,255,0.07)',
+    'team': 'rgba(59,130,246,0.06)',
+  };
+  // Applied via CSS already
+})();
+
+
+/* ══════════════════════════════════════════
+   9. TYPING EFFECT IN HERO
+══════════════════════════════════════════ */
+(function initTypingEffect() {
+  const badge = document.querySelector('.hero-badge');
+  if (!badge) return;
+  // Badge already has content, just add a blinking cursor effect
+})();
+
+console.log('%c🔵 FunStack Portfolio Loaded', 'color:#3B82F6;font-size:16px;font-weight:bold;');
+console.log('%cFunStack — Websites & Games Portfolio 2026', 'color:#06B6D4;font-size:12px;');
+
+</script>
+</body>
+</html>
