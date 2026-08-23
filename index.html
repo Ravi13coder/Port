@@ -146,6 +146,15 @@ button { font-family:inherit; cursor:pointer; }
 .nav-link:hover, .nav-link.active {
   color:var(--text-0); background:rgba(224,56,128,0.13);
 }
+.nav-link-notebook {
+  color:var(--amber) !important;
+  background:rgba(240,160,0,0.1) !important;
+  border:1px solid rgba(240,160,0,0.25);
+}
+.nav-link-notebook:hover {
+  background:rgba(240,160,0,0.2) !important;
+  border-color:var(--amber);
+}
 /* Hamburger */
 .hamburger {
   display:none; flex-direction:column; justify-content:center;
@@ -566,6 +575,86 @@ button { font-family:inherit; cursor:pointer; }
 }
 
 /* ────────────────────────────────────────────
+   15. GUIDE BOOK
+──────────────────────────────────────────── */
+.guidebook-section {
+  background:linear-gradient(180deg,var(--bg-1) 0%,var(--bg-2) 50%,var(--bg-1) 100%);
+  position:relative; overflow:hidden;
+}
+.guidebook-section::before {
+  content:''; position:absolute; top:30%; left:50%;
+  transform:translate(-50%,-50%); width:700px; height:420px;
+  background:radial-gradient(ellipse, rgba(240,160,0,0.07), transparent 70%);
+  pointer-events:none;
+}
+.guidebook-hero-card {
+  display:flex; gap:36px; align-items:stretch;
+  background:var(--bg-card); border:1px solid var(--border-amb);
+  border-radius:var(--r-lg); padding:36px;
+  position:relative; overflow:hidden; transition:var(--t);
+}
+.guidebook-hero-card::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg,rgba(240,160,0,0.04), transparent 60%);
+  pointer-events:none;
+}
+.guidebook-hero-card:hover { border-color:rgba(240,160,0,0.45); box-shadow:0 24px 80px rgba(240,160,0,0.08); }
+.gb-card-left { display:flex; gap:22px; align-items:flex-start; flex:1; }
+.gb-icon-wrap {
+  flex-shrink:0; width:68px; height:68px; border-radius:var(--r);
+  background:linear-gradient(135deg,rgba(240,160,0,0.18),rgba(224,56,128,0.1));
+  border:1px solid var(--border-amb);
+  display:flex; align-items:center; justify-content:center;
+}
+.gb-icon      { width:34px; height:34px; color:var(--amber); }
+.gb-meta      { flex:1; }
+.gb-title     { font-size:1.35rem; font-weight:800; letter-spacing:-0.02em; margin-bottom:4px; }
+.gb-subtitle  { color:var(--amber); font-size:0.83rem; font-weight:600; margin-bottom:12px; }
+.gb-details   { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:14px; }
+.gb-detail-chip {
+  padding:3px 11px; border-radius:50px; background:rgba(240,160,0,0.1);
+  border:1px solid rgba(240,160,0,0.22); font-size:0.72rem; font-weight:500; color:var(--amber);
+}
+.gb-description { font-size:0.87rem; color:var(--text-1); line-height:1.75; }
+.gb-card-right {
+  display:flex; flex-direction:column; gap:14px;
+  align-items:center; width:250px; flex-shrink:0;
+}
+.gb-preview-thumb {
+  width:100%; aspect-ratio:3/4; max-height:210px;
+  border-radius:var(--r); background:linear-gradient(135deg,#100E1E,#15121F);
+  border:1px solid rgba(240,160,0,0.22); position:relative; overflow:hidden;
+  cursor:pointer; transition:var(--t); display:block;
+}
+.gb-preview-thumb:hover { border-color:var(--amber); box-shadow:0 8px 32px rgba(240,160,0,0.2); transform:scale(1.02); }
+.gb-preview-overlay {
+  position:absolute; inset:0; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:10px;
+  background:rgba(7,6,12,0.5); backdrop-filter:blur(2px); z-index:2; transition:background 0.3s;
+}
+.gb-preview-thumb:hover .gb-preview-overlay { background:rgba(7,6,12,0.28); }
+.gb-play-btn {
+  width:54px; height:54px; border-radius:50%;
+  background:var(--grad-amber); display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 20px rgba(240,160,0,0.42); transition:transform 0.3s;
+}
+.gb-preview-thumb:hover .gb-play-btn { transform:scale(1.12); }
+.gb-play-btn svg { width:24px; height:24px; color:#07060C; }
+.gb-preview-label { font-size:0.78rem; font-weight:700; color:#fff; letter-spacing:0.04em; }
+.gb-page-lines { position:absolute; inset:0; padding:18px 22px; display:flex; flex-direction:column; gap:10px; z-index:1; }
+.gb-page-line { height:3px; background:rgba(255,255,255,0.055); border-radius:2px; }
+.gb-page-line.short { width:60%; }
+.gb-actions { display:flex; flex-direction:column; gap:9px; width:100%; }
+.gb-btn {
+  display:flex; align-items:center; justify-content:center;
+  gap:8px; padding:12px 18px; border-radius:var(--r);
+  font-size:0.875rem; font-weight:700; border:none; transition:var(--t);
+}
+.gb-btn svg { width:17px; height:17px; flex-shrink:0; }
+.gb-btn-read { background:var(--grad-rose); color:#fff; box-shadow:0 4px 20px rgba(224,56,128,0.32); width:100%; }
+.gb-btn-read:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(224,56,128,0.52); }
+
+/* ────────────────────────────────────────────
    16. FOOTER
 ──────────────────────────────────────────── */
 .footer { background:var(--bg-0); border-top:1px solid var(--border); padding:40px 0; position:relative; z-index:1; }
@@ -732,9 +821,8 @@ button { font-family:inherit; cursor:pointer; }
   .about-grid  { grid-template-columns:1fr; gap:36px; }
   .about-img-stack { display:none; }
   .features-grid { grid-template-columns:1fr; }
-  .specs-grid  { grid-template-columns:repeat(2,1fr); }
-  .team-grid   { grid-template-columns:repeat(2,1fr); }
   .lib-card    { flex:1 1 130px; }
+  .inaction-grid { grid-template-columns:repeat(2,1fr); }
 }
 
 /* ════════════════════════════════════════════
@@ -773,29 +861,45 @@ button { font-family:inherit; cursor:pointer; }
   .features-grid { grid-template-columns:1fr; gap:14px; }
   .feature-card  { padding:22px; }
 
-  /* Gallery */
-  .gallery-grid { grid-template-columns:1fr 1fr; gap:10px; }
-  .gallery-item.large { grid-column:span 2; grid-row:span 1; aspect-ratio:16/9; }
-  .gallery-caption { transform:translateY(0); }
+  /* In Action */
+  .inaction-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
+  .inaction-item.large { grid-column:span 2; grid-row:span 1; aspect-ratio:16/9; }
+  .inaction-caption { transform:translateY(0); }
 
   /* Tech stack */
   .lib-grid  { gap:10px; }
   .lib-card  { flex:1 1 calc(50% - 10px); max-width:calc(50% - 5px); min-width:unset; padding:16px 12px; }
   .lib-logo,.lib-logo-text { width:44px; height:44px; }
 
-  /* Arch */
-  .arch-flow { flex-direction:column; align-items:center; gap:20px; }
-  .arch-step { width:200px; }
-  .arch-arrow{ display:none; }
-  .specs-grid{ grid-template-columns:1fr 1fr; gap:10px; }
-  .spec-card { padding:18px; }
+  /* Team / Profile */
+  .team-card-mentor { max-width:100%; }
 
-  /* Team */
-  .team-grid { grid-template-columns:1fr; max-width:380px; margin:0 auto; gap:16px; }
+  /* Guide Book */
+  .guidebook-hero-card { flex-direction:column; padding:28px; }
+  .gb-card-right { width:100%; flex-direction:row; gap:16px; }
+  .gb-preview-thumb { max-height:160px; flex:1; }
+  .gb-actions { flex:1; justify-content:center; }
 
-  /* Lib modal */
-  .lib-modal-inner { padding:24px 20px; }
-  .modal-title { font-size:1.4rem; }
+  /* Project modal — fit mobile screen */
+  .lib-modal { padding:0; align-items:flex-end; }
+  .lib-modal-inner {
+    max-width:100%; width:100%; max-height:92vh;
+    border-radius:var(--r-lg) var(--r-lg) 0 0;
+    border-left:none; border-right:none; border-bottom:none;
+    animation:slideUpMobile 0.32s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  @keyframes slideUpMobile {
+    from { transform:translateY(100%); opacity:0; }
+    to   { transform:translateY(0); opacity:1; }
+  }
+  .modal-shot-wrap { aspect-ratio:16/9; border-radius:var(--r-lg) var(--r-lg) 0 0; }
+  .modal-shot-wrap .modal-shot-placeholder { font-size:2.8rem; }
+  .modal-body-wrap { padding:20px 18px 22px; }
+  .modal-title   { font-size:1.25rem; }
+  .modal-tagline { font-size:0.8rem; margin-bottom:12px; }
+  .modal-body    { font-size:0.85rem; }
+  .modal-launch-btn { padding:12px 18px; font-size:0.85rem; }
+  .modal-close   { top:10px; right:10px; width:32px; height:32px; }
 
   /* Footer */
   .footer-inner { flex-direction:column; text-align:center; gap:16px; }
@@ -818,13 +922,26 @@ button { font-family:inherit; cursor:pointer; }
   .hero-stats { gap:12px; }
   .stat-value { font-size:1.3rem; }
   .container  { padding:0 16px; }
-  .gallery-grid { grid-template-columns:1fr; gap:10px; }
-  .gallery-item.large { grid-column:span 1; }
+
+  /* In Action collapses to single column on very small screens */
+  .inaction-grid { grid-template-columns:1fr; gap:10px; }
+  .inaction-item.large { grid-column:span 1; aspect-ratio:4/3; }
+
   .lib-card   { flex:1 1 calc(50% - 8px); max-width:calc(50% - 4px); }
-  .specs-grid { grid-template-columns:1fr; }
   .section    { padding:52px 0; }
   .section-title { font-size:1.75rem; }
-  .arch-step  { width:180px; }
+
+  /* Project modal — edge-to-edge on small phones */
+  .lib-modal-inner { max-height:94vh; }
+  .modal-shot-wrap { aspect-ratio:4/3; }
+  .modal-body-wrap { padding:18px 16px 20px; }
+  .modal-title   { font-size:1.15rem; }
+
+  /* Guide Book */
+  .guidebook-hero-card { flex-direction:column; padding:22px; gap:22px; }
+  .gb-card-left  { flex-direction:column; gap:16px; }
+  .gb-card-right { width:100%; flex-direction:column; }
+  .gb-preview-thumb { max-height:180px; aspect-ratio:5/3; }
 }
 
 </style>
@@ -848,6 +965,7 @@ button { font-family:inherit; cursor:pointer; }
         <li><a href="#stack" class="nav-link">Websites & Games Stack</a></li>
         <li><a href="#inaction" class="nav-link">In Action</a></li>
         <li><a href="#team" class="nav-link">Ravi's Profile</a></li>
+        <li><a href="#guidebook" class="nav-link nav-link-notebook">📖 Guide Book</a></li>
       </ul>
       <button class="hamburger" id="hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
@@ -1052,15 +1170,22 @@ button { font-family:inherit; cursor:pointer; }
         <div class="stack-category">
           <h3 class="category-label">🎮 Ravi Scratch Games Stack</h3>
           <div class="lib-grid">
-            <div class="lib-card lib-card-empty" onclick="openProjectModal('scratch-1')">
-              <div class="lib-logo lib-logo-text" style="background:linear-gradient(135deg,#FFB100,#FF7A00)">🧩</div>
-              <span class="lib-name">Add Scratch Game</span>
-              <span class="lib-role">Coming Soon</span>
+            <div class="lib-card" id="lib-scratch-1" onclick="openProjectModal('scratch-1')">
+              <div class="lib-logo lib-logo-text" style="background:linear-gradient(135deg,#FFB100,#FF7A00)">
+                <svg viewBox="0 0 64 64" width="30" height="30" fill="none">
+                  <rect x="6" y="18" width="7" height="28" rx="3.5" fill="#fff"/>
+                  <rect x="51" y="18" width="7" height="28" rx="3.5" fill="#fff"/>
+                  <circle cx="32" cy="32" r="8" fill="#fff"/>
+                </svg>
+              </div>
+              <span class="lib-name">Multiplayer Pong</span>
+              <span class="lib-role">2-Player Game</span>
             </div>
-            <div class="lib-card lib-card-empty" onclick="openProjectModal('scratch-2')">
-              <div class="lib-logo lib-logo-text" style="background:linear-gradient(135deg,#FFB100,#FF7A00)">🧩</div>
-              <span class="lib-name">Add Scratch Game</span>
-              <span class="lib-role">Coming Soon</span>
+            <div class="lib-card" id="lib-scratch-2" onclick="openProjectModal('scratch-2')">
+              <img src="zombie-shooter-logo.png" alt="Zombie Shooter" class="lib-logo" />
+              <span class="lib-name">Zombie Shooter</span>
+              <span class="lib-role">Scratch Game</span>
+              <div class="lib-hover-hint">Click to learn more →</div>
             </div>
             <div class="lib-card lib-card-empty" onclick="openProjectModal('scratch-3')">
               <div class="lib-logo lib-logo-text" style="background:linear-gradient(135deg,#FFB100,#FF7A00)">🧩</div>
@@ -1125,9 +1250,19 @@ button { font-family:inherit; cursor:pointer; }
         <p class="section-sub">A growing collage of screenshots from every project</p>
       </div>
       <div class="inaction-grid" id="inactionGrid">
-        <div class="inaction-empty">
-          <span class="big">🖼️</span>
-          <p>No screenshots yet — send one over whenever you add a new game or project, and it'll show up here.</p>
+        <div class="inaction-item large" onclick="openProjectModal('scratch-1')">
+          <img src="pong-screenshot.jpeg" alt="Multiplayer Pong Game" />
+          <div class="inaction-caption">
+            <span class="ia-tag">Scratch Game</span>
+            <p>Multiplayer Pong — 2-player match with a baseball ball and painted forest backdrop</p>
+          </div>
+        </div>
+        <div class="inaction-item" onclick="openProjectModal('scratch-2')">
+          <img src="zombie-shooter-screenshot.jpeg" alt="Zombie Shooter Game" />
+          <div class="inaction-caption">
+            <span class="ia-tag">Scratch Game</span>
+            <p>Zombie Shooter — survive the horde closing in from every side</p>
+          </div>
         </div>
       </div>
     </div>
@@ -1166,6 +1301,62 @@ button { font-family:inherit; cursor:pointer; }
     </div>
   </section>
 
+  <!-- ─── GUIDE BOOK ─── -->
+  <section id="guidebook" class="section guidebook-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Documentation</span>
+        <h2 class="section-title">Guide <span class="gradient-text">Book</span></h2>
+        <p class="section-sub">A growing guide to every project in the stack</p>
+      </div>
+
+      <div class="guidebook-hero-card">
+        <div class="gb-card-left">
+          <div class="gb-icon-wrap">
+            <svg class="gb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <div class="gb-meta">
+            <h3 class="gb-title">FunStack Guide Book</h3>
+            <p class="gb-subtitle">Websites &amp; Games · 2026</p>
+            <div class="gb-details">
+              <span class="gb-detail-chip">📘 Step-by-Step</span>
+              <span class="gb-detail-chip">🎮 Games &amp; Websites</span>
+              <span class="gb-detail-chip">✨ Updated Often</span>
+            </div>
+            <p class="gb-description">
+              A growing guide covering how each website and game in this stack was built —
+              tools used, lessons learned, and tips for anyone trying it themselves.
+            </p>
+          </div>
+        </div>
+        <div class="gb-card-right">
+          <a href="#" target="_blank" rel="noopener" class="gb-preview-thumb" id="guideBookThumb">
+            <div class="gb-preview-overlay">
+              <div class="gb-play-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+              <span class="gb-preview-label">Click to Read</span>
+            </div>
+            <div class="gb-page-lines">
+              <div class="gb-page-line"></div>
+              <div class="gb-page-line"></div>
+              <div class="gb-page-line short"></div>
+              <div class="gb-page-line"></div>
+              <div class="gb-page-line short"></div>
+            </div>
+          </a>
+          <div class="gb-actions">
+            <a href="#" target="_blank" rel="noopener" class="gb-btn gb-btn-read" id="guideBookLink">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              Read Guide Book
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- ─── FOOTER ─── -->
   <footer class="footer">
     <div class="container">
@@ -1182,6 +1373,7 @@ button { font-family:inherit; cursor:pointer; }
           <a href="#stack">Websites & Games Stack</a>
           <a href="#inaction">In Action</a>
           <a href="#team">Ravi's Profile</a>
+          <a href="#guidebook">📖 Guide Book</a>
         </div>
         <div class="footer-copy">
           Built with ❤️ using HTML, CSS, JavaScript &amp; a lot of creativity
@@ -1203,7 +1395,7 @@ button { font-family:inherit; cursor:pointer; }
         <h2 id="modalTitle" class="modal-title"></h2>
         <p id="modalTagline" class="modal-tagline"></p>
         <div id="modalBody" class="modal-body"></div>
-        <a id="modalLaunchBtn" href="#" target="_blank" rel="noopener" class="modal-launch-btn">
+        <a id="modalLaunchBtn" href="#" target="_blank" rel="noopener" class="modal-launch-btn" onclick="return handleLaunchClick(event)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           <span id="modalLaunchLabel">Launch Project</span>
         </a>
@@ -1352,7 +1544,7 @@ button { font-family:inherit; cursor:pointer; }
   // Styles are now in style.css — no injection needed
 
   const targets = document.querySelectorAll(
-    '.feature-card, .lib-card, .team-card, .about-highlight-cards .highlight-card, .inaction-item'
+    '.feature-card, .lib-card, .team-card, .about-highlight-cards .highlight-card, .inaction-item, .guidebook-hero-card'
   );
 
   targets.forEach((el, i) => {
@@ -1382,8 +1574,8 @@ const projectData = {
   'proj-1':     { title: 'Add Project',       tagline: "Ravi's Projects Stack", img: null, icon: '🚀', url: null, desc: 'This project card is still a placeholder. Once added, a screenshot and description will show up here.' },
   'proj-2':     { title: 'Add Project',       tagline: "Ravi's Projects Stack", img: null, icon: '🚀', url: null, desc: 'This project card is still a placeholder. Once added, a screenshot and description will show up here.' },
   'proj-3':     { title: 'Add Project',       tagline: "Ravi's Projects Stack", img: null, icon: '🚀', url: null, desc: 'This project card is still a placeholder. Once added, a screenshot and description will show up here.' },
-  'scratch-1':  { title: 'Add Scratch Game',  tagline: 'Ravi Scratch Games Stack', img: null, icon: '🧩', url: null, desc: 'This game card is still a placeholder. Once added, a screenshot and description will show up here.' },
-  'scratch-2':  { title: 'Add Scratch Game',  tagline: 'Ravi Scratch Games Stack', img: null, icon: '🧩', url: null, desc: 'This game card is still a placeholder. Once added, a screenshot and description will show up here.' },
+  'scratch-1':  { title: 'Multiplayer Pong', tagline: 'Ravi Scratch Games Stack', img: 'pong-screenshot.jpeg', icon: '🧩', url: 'https://scratch.mit.edu/projects/1270736937/', desc: 'A two-player Pong game with a twist — a baseball stands in for the ball, set against a custom painted forest-and-castle backdrop. Player 1 and Player 2 each control a paddle, racing to rack up the higher score while a sound toggle sits front and center.' },
+  'scratch-2':  { title: 'Zombie Shooter',  tagline: 'Ravi Scratch Games Stack', img: 'zombie-shooter-screenshot.jpeg', icon: '🧟', url: 'https://scratch.mit.edu/projects/1271009820/', desc: 'A top-down survival shooter — zombies close in from every side while you aim and fire from the center. Track your score in the top-right corner and watch your heart count in the top-left as the horde gets closer. No sound in this one — just fast reflexes.' },
   'scratch-3':  { title: 'Add Scratch Game',  tagline: 'Ravi Scratch Games Stack', img: null, icon: '🧩', url: null, desc: 'This game card is still a placeholder. Once added, a screenshot and description will show up here.' },
   'codegame-1': { title: 'Add Coded Game',    tagline: 'Ravi Coding Games', img: null, icon: '🎲', url: null, desc: 'This game card is still a placeholder. Once added, a screenshot and description will show up here.' },
   'codegame-2': { title: 'Add Coded Game',    tagline: 'Ravi Coding Games', img: null, icon: '🎲', url: null, desc: 'This game card is still a placeholder. Once added, a screenshot and description will show up here.' },
@@ -1423,16 +1615,29 @@ function openProjectModal(key) {
 
   if (data.url) {
     modalLaunchBtn.href = data.url;
+    modalLaunchBtn.dataset.url = data.url;
     modalLaunchBtn.classList.remove('disabled');
     modalLaunchLabel.textContent = 'Launch Project';
   } else {
     modalLaunchBtn.href = '#';
+    modalLaunchBtn.dataset.url = '';
     modalLaunchBtn.classList.add('disabled');
     modalLaunchLabel.textContent = 'Link Coming Soon';
   }
 
   projectModal.classList.add('open');
   document.body.style.overflow = 'hidden';
+}
+
+function handleLaunchClick(e) {
+  const url = modalLaunchBtn.dataset.url;
+  if (!url) {
+    e.preventDefault();
+    return false;
+  }
+  e.preventDefault();
+  window.open(url, '_blank', 'noopener');
+  return false;
 }
 
 function closeProjectModal() {
