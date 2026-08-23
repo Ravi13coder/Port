@@ -1149,10 +1149,11 @@ button { font-family:inherit; cursor:pointer; }
         <div class="stack-category">
           <h3 class="category-label">🚀 Ravi's Projects Stack</h3>
           <div class="lib-grid">
-            <div class="lib-card lib-card-empty" onclick="openProjectModal('proj-1')">
-              <div class="lib-logo lib-logo-text" style="background:linear-gradient(135deg,#6C63FF,#3B82F6)">🚀</div>
-              <span class="lib-name">Add Project</span>
-              <span class="lib-role">Coming Soon</span>
+            <div class="lib-card" id="lib-proj-1" onclick="openProjectModal('proj-1')">
+              <img src="mmq-timer-logo.png" alt="Advanced MMQ Timer" class="lib-logo" />
+              <span class="lib-name">Advanced MMQ Timer</span>
+              <span class="lib-role">Web App</span>
+              <div class="lib-hover-hint">Click to learn more →</div>
             </div>
             <div class="lib-card lib-card-empty" onclick="openProjectModal('proj-2')">
               <div class="lib-logo lib-logo-text" style="background:linear-gradient(135deg,#6C63FF,#3B82F6)">🚀</div>
@@ -1262,6 +1263,13 @@ button { font-family:inherit; cursor:pointer; }
           <div class="inaction-caption">
             <span class="ia-tag">Scratch Game</span>
             <p>Zombie Shooter — survive the horde closing in from every side</p>
+          </div>
+        </div>
+        <div class="inaction-item" onclick="openProjectModal('proj-1')">
+          <img src="mmq-timer-screenshot.jpeg" alt="Advanced MMQ Timer" />
+          <div class="inaction-caption">
+            <span class="ia-tag">Web App</span>
+            <p>Advanced MMQ Timer — log and review question-answer timing drills</p>
           </div>
         </div>
       </div>
@@ -1571,7 +1579,7 @@ button { font-family:inherit; cursor:pointer; }
 // onclick="openProjectModal('key')". `img` can be a normal URL or a
 // base64 data: URI (used when a screenshot is embedded directly).
 const projectData = {
-  'proj-1':     { title: 'Add Project',       tagline: "Ravi's Projects Stack", img: null, icon: '🚀', url: null, desc: 'This project card is still a placeholder. Once added, a screenshot and description will show up here.' },
+  'proj-1':     { title: 'Advanced MMQ Timer', tagline: "Ravi's Projects Stack", img: 'mmq-timer-screenshot.jpeg', icon: '⏱️', url: 'https://ravi13coder.github.io/AdvanceMMQTimer/', desc: 'A speed-drill timer for practicing question sets — hit Start (or the spacebar) to log how long each question takes, then review a table of Question, Answer, and Time for every attempt. Times under 1.0s are auto-discarded, with Clear All and Undo to manage the log.' },
   'proj-2':     { title: 'Add Project',       tagline: "Ravi's Projects Stack", img: null, icon: '🚀', url: null, desc: 'This project card is still a placeholder. Once added, a screenshot and description will show up here.' },
   'proj-3':     { title: 'Add Project',       tagline: "Ravi's Projects Stack", img: null, icon: '🚀', url: null, desc: 'This project card is still a placeholder. Once added, a screenshot and description will show up here.' },
   'scratch-1':  { title: 'Multiplayer Pong', tagline: 'Ravi Scratch Games Stack', img: 'pong-screenshot.jpeg', icon: '🧩', url: 'https://scratch.mit.edu/projects/1270736937/', desc: 'A two-player Pong game with a twist — a baseball stands in for the ball, set against a custom painted forest-and-castle backdrop. Player 1 and Player 2 each control a paddle, racing to rack up the higher score while a sound toggle sits front and center.' },
