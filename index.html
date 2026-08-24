@@ -1377,7 +1377,7 @@ button { font-family:inherit; cursor:pointer; }
       <div class="team-mentor-row">
         <div class="team-card team-card-mentor featured">
           <div class="team-avatar">
-            <img src="ravi-profile-photo.jpg" alt="K.R. Ravi Raj" />
+            <img src="ravi-profile-photo.png" alt="K.R. Ravi Raj" />
           </div>
           <h3>K.R. Ravi Raj</h3>
           <p class="team-desc">
@@ -1736,7 +1736,8 @@ function openProjectModal(key) {
     modalLaunchBtn.href = data.url;
     modalLaunchBtn.dataset.url = data.url;
     modalLaunchBtn.classList.remove('disabled');
-    modalLaunchLabel.textContent = 'Launch Project';
+    const websiteCategories = ['Amazing Websites', 'Browser Games'];
+    modalLaunchLabel.textContent = websiteCategories.includes(data.tagline) ? 'Launch Website' : 'Launch Project';
   } else {
     modalLaunchBtn.href = '#';
     modalLaunchBtn.dataset.url = '';
